@@ -48,3 +48,7 @@ icacls $env:USERPROFILE\.ssh\authorized_keys /grant:r "${env:USERNAME}:R" /T /C 
 icacls $env:USERPROFILE\.ssh /grant:r "${env:USERNAME}:(OI)(CI)(F)" /T /C /Q
 icacls $env:USERPROFILE\.ssh\authorized_keys /grant:r "${env:USERNAME}:W" /T /C /Q
 Restart-Service sshd
+
+# Packages
+
+C:\Program Files\Microsoft\jdk-11.0.22.7-hotspot\
