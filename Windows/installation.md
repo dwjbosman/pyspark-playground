@@ -8,6 +8,11 @@ SET HDFS_SECONDARYNAMENODE_USER=root
 SET YARN_RESOURCEMANAGER_USER=root
 SET YARN_NODEMANAGER_USER=root
 
+# starup
+
+rd /S /Q %HADOOP_HOME%\data\dfs
+hdfs namenode -format
+
 # Some commands to remember
 jps
 hdfs namenode -format
