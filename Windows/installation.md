@@ -8,6 +8,10 @@ SET HDFS_SECONDARYNAMENODE_USER=root
 SET YARN_RESOURCEMANAGER_USER=root
 SET YARN_NODEMANAGER_USER=root
 
+## get hadoop class path
+>hadoop classpath
+>set SPARK_DIST_CLASSPATH="C:\Users\dwjbo\hadoop-3.3.5\etc\hadoop";C:\Users\dwjbo\hadoop-3.3.5\share\hadoop\common;C:\Users\dwjbo\hadoop-3.3.5\share\hadoop\common\lib\*;C:\Users\dwjbo\hadoop-3.3.5\share\hadoop\common\*;C:\Users\dwjbo\hadoop-3.3.5\share\hadoop\hdfs;C:\Users\dwjbo\hadoop-3.3.5\share\hadoop\hdfs\lib\*;C:\Users\dwjbo\hadoop-3.3.5\share\hadoop\hdfs\*;C:\Users\dwjbo\hadoop-3.3.5\share\hadoop\yarn;C:\Users\dwjbo\hadoop-3.3.5\share\hadoop\yarn\lib\*;C:\Users\dwjbo\hadoop-3.3.5\share\hadoop\yarn\*;C:\Users\dwjbo\hadoop-3.3.5\share\hadoop\mapreduce\*
+
 # startup
 
 ## master
@@ -25,6 +29,20 @@ start-yarn
 start-dfs-datanode
 start-yarn-nodemanager
 
+## prepare hdfs
+
+hdfs dfs -mkdir -p /user/spark/share/lib/ 
+hdfs dfs -put %SPARK_HOME%\jars\* /user/spark/share/lib/ 
+hdfs dfs -mkdir -p /spark-logs    
+
+# Run a job
+
+spark-submit --master yarn --conf spark.yarn.appMasterEnv.PYSPARK_PYTHON=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Scripts\python.exe --conf spark.exectorEnv.PYSPARK_PYTHON=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Scripts\python.exe --conf spark.yarn.appMasterEnv.PYTHONPATH=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Lib\site-packages --conf spark.executorEnv.PYTHONPATH=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Lib\site-packages C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground\examples\hello_world.py
+
+
+spark-submit --verbose --master yarn --deploy-mode cluster --conf spark.yarn.appMasterEnv.PYSPARK_PYTHON=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Scripts\python.exe --conf spark.exectorEnv.PYSPARK_PYTHON=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Scripts\python.exe --conf spark.yarn.appMasterEnv.PYTHONPATH=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Lib\site-packages --conf spark.executorEnv.PYTHONPATH=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Lib\site-packages C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground\examples\hello_world.py 
+
+spark-submit --verbose --master yarn --deploy-mode client --class org.apache.spark.examples.SparkPi C:\Users\dwjbo\spark-3.5.0-bin-hadoop3-scala2.13\examples\jars\spark-examples_2.13-3.5.0.jar 1
 
 # Some commands to remember
 jps

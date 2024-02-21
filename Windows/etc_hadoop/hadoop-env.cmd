@@ -25,6 +25,8 @@
 @rem set JAVA_HOME=%JAVA_HOME%
 set JAVA_HOME=C:\PROGRA~1\Microsoft\jdk-11.0.22.7-hotspot
 
+
+
 @rem The jsvc implementation to use. Jsvc is required to run secure datanodes.
 @rem set JSVC_HOME=%JSVC_HOME%
 
