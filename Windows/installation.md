@@ -60,6 +60,8 @@ http://localhost:9870/dfshealth.html#tab-overview
 
 # Env variables via control panel
 
+Have all been set as USER env vars (not SYSTEM)
+
 HADOOP_HOME=C:\Users\dwjbo\hadoop-3.3.5
 SPARK_HOME=C:\Users\dwjbo\spark-3.5.0-bin-without-hadoop
 
@@ -120,7 +122,10 @@ https://www.apache.org/dyn/closer.lua/spark/spark-3.5.0/spark-3.5.0-bin-without-
 
 ### Configuration
 
-Copy Windows/spark_conf/* into spark<XYZ>/conf
+Copy Windows\spark_conf\* into %SPARK_HOME%\conf
+
+update spark-defaults.conf, specify hadoop.home.dir correctly (escape \)
+Note. When setting HADOOP_HOME as a system env var, it will use that variable, however backslashes are not correctly escaped then!
 
 ## PySPark
 
