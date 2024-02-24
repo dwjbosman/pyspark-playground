@@ -14,30 +14,36 @@ SET YARN_NODEMANAGER_USER=root
 
 # startup
 
-## master
+## HDFS
 
 rd /S /Q %HADOOP_HOME%\data\dfs
 hdfs namenode -format
 start-dfs
 
+hdfs dfs -mkdir -p /user/spark/share/lib/ 
+hdfs dfs -put %SPARK_HOME%\jars\* /user/spark/share/lib/ 
+hdfs dfs -mkdir -p /spark-logs    
+
+
+## master
+
 In a terminal with admin priv
 
 start-yarn
+
+cd %SPARK_HOME%
+spark-class.cmd org.apache.spark.deploy.history.HistoryServer
 
 ## worker
 
 start-dfs-datanode
 start-yarn-nodemanager
 
-## prepare hdfs
 
-hdfs dfs -mkdir -p /user/spark/share/lib/ 
-hdfs dfs -put %SPARK_HOME%\jars\* /user/spark/share/lib/ 
-hdfs dfs -mkdir -p /spark-logs    
 
 # Run a job
 
-spark-submit --master yarn --conf spark.yarn.appMasterEnv.PYSPARK_PYTHON=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Scripts\python.exe --conf spark.exectorEnv.PYSPARK_PYTHON=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Scripts\python.exe --conf spark.yarn.appMasterEnv.PYTHONPATH=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Lib\site-packages --conf spark.executorEnv.PYTHONPATH=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Lib\site-packages C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground\examples\hello_world.py
+spark-submit --master yarn --deploy-mode client --conf spark.yarn.appMasterEnv.PYSPARK_PYTHON=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Scripts\python.exe --conf spark.exectorEnv.PYSPARK_PYTHON=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Scripts\python.exe --conf spark.yarn.appMasterEnv.PYTHONPATH=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Lib\site-packages --conf spark.executorEnv.PYTHONPATH=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Lib\site-packages C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground\examples\hello_world.py
 
 
 spark-submit --verbose --master yarn --deploy-mode cluster --conf spark.yarn.appMasterEnv.PYSPARK_PYTHON=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Scripts\python.exe --conf spark.exectorEnv.PYSPARK_PYTHON=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Scripts\python.exe --conf spark.yarn.appMasterEnv.PYTHONPATH=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Lib\site-packages --conf spark.executorEnv.PYTHONPATH=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Lib\site-packages C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground\examples\hello_world.py 
