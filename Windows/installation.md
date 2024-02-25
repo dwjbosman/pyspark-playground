@@ -122,6 +122,7 @@ In a terminal with admin priv
 
 start-yarn
 
+In a non admin terminal:
 cd %SPARK_HOME%
 spark-class.cmd org.apache.spark.deploy.history.HistoryServer
 
@@ -139,7 +140,21 @@ spark-submit --master yarn --deploy-mode client --conf spark.yarn.appMasterEnv.P
 
 spark-submit --verbose --master yarn --deploy-mode cluster --conf spark.yarn.appMasterEnv.PYSPARK_PYTHON=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Scripts\python.exe --conf spark.exectorEnv.PYSPARK_PYTHON=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Scripts\python.exe --conf spark.yarn.appMasterEnv.PYTHONPATH=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Lib\site-packages --conf spark.executorEnv.PYTHONPATH=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Lib\site-packages C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground\examples\hello_world.py 
 
+
+spark-submit --master yarn --deploy-mode client  --conf "spark.yarn.am.extraJavaOptions=-Dhadoop.home.dir=C:\\Users\\dwjbo\\hadoop-3.3.5" --conf "spark.executor.extraJavaOptions=-Dhadoop.home.dir=C:\\Users\\dwjbo\\hadoop-3.3.5" --conf "spark.driver.extraJavaOptions=-Dhadoop.home.dir=C:\\Users\\dwjbo\\hadoop-3.3.5" --conf spark.yarn.appMasterEnv.PYSPARK_PYTHON=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Scripts\python.exe --conf spark.exectorEnv.PYSPARK_PYTHON=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Scripts\python.exe --conf spark.yarn.appMasterEnv.PYTHONPATH=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Lib\site-packages --conf spark.executorEnv.PYTHONPATH=C:\Users\dwjbo\Downloads\pyspark-playground-main\pyspark-playground-main\.venv\Lib\site-packages  C:\Users\dwjbo\spark-3.5.0-bin-hadoop3-scala2.13\examples\src\main\python\pi.py  1
+
+
+spark-submit --master yarn --deploy-mode client --conf "spar.yarn.am.extraJavaOptions=-Dhadoop.home.dir=C:\\Users\\dwjbo\\hadoop-3.3.5" --conf "spark.executor.extraJavaOptions=-Dhadoop.home.dir=C:\\Users\\dwjbo\\hadoop-3.3.5" --conf "spark.driver.extraJavaOptions=-Dhadoop.home.dir=C:\\Users\\dwjbo\\hadoop-3.3.5"  --conf "spark.pyspark.virtualenv.bin.path=C:\\Users\\dwjbo\\Downloads\\pyspark-playground\\.venv"  --conf "spark.pyspark.python=C:\\Users\\dwjbo\\Downloads\\pyspark-playground\\.venv\\Scripts\\python.exe"  --conf "spark.pyspark.driver.python=C:\\Users\\dwjbo\\Downloads\\pyspark-playground\\.venv\\Scripts\\python.exe"  --conf "spark.yarn.appMasterEnv.PYSPARK_PYTHON=C:\\Users\\dwjbo\\Downloads\\pyspark-playground\\.venv\\Scripts\\python.exe"  --conf "spark.pyspark.python=C:\\Users\\dwjbo\\Downloads\\pyspark-playground\\.venv\\Scripts\\python.exe" --conf "spark.yarn.appMasterEnv.PYTHONPATH=C:\\Users\dwjbo\\Downloads\\pyspark-playground-main\\.venv\\Lib\\site-packages" --conf "spark.executorEnv.PYTHONPATH=C:\\Users\dwjbo\\Downloads\\pyspark-playground-main\\.venv\\Lib\\site-packages"  C:\Users\dwjbo\spark-3.5.0-bin-hadoop3-scala2.13\examples\src\main\python\pi.py  1
+
+
 spark-submit --verbose --master yarn --deploy-mode client --class org.apache.spark.examples.SparkPi C:\Users\dwjbo\spark-3.5.0-bin-hadoop3-scala2.13\examples\jars\spark-examples_2.13-3.5.0.jar 1
+
+spark-submit --verbose --master yarn --deploy-mode client --conf "spark.executor.extraJavaOptions=-Dhadoop.home.dir=C:\\Users\\dwjbo\\hadoop-3.3.5" --conf "spark.driver.extraJavaOptions=-Dhadoop.home.dir=C:\\Users\\dwjbo\\hadoop-3.3.5" --class org.apache.spark.examples.SparkPi C:\Users\dwjbo\spark-3.5.0-bin-hadoop3-scala2.13\examples\jars\spark-examples_2.13-3.5.0.jar 1
+
+
+-- currently working, sometimes times out
+spark-submit --verbose --master yarn --deploy-mode client --conf spark.yarn.stagingDir=hdfs://omen.planetbosman.com:19000/user/spark/staging --class org.apache.spark.examples.SparkPi C:\Users\dwjbo\Downloads\pyspark-playground\examples\spark-examples\target\spark-examples-1.0.jar 2
+
 
 # Some commands to remember
 jps
